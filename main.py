@@ -47,8 +47,8 @@ def reshape(w, h):
     glMatrixMode(GL_PROJECTION)
     glLoadIdentity()
     glViewport(0, 0, width, height)
-    gluPerspective(50, width / height, 0.1, 100)
-    gluLookAt(0.3, 0.3, 0.3, 0, 0, 0, 0, 1, 0)
+    gluPerspective(100, width / height, 0.1, 100)
+    gluLookAt(0, 0, 2, 0, 0, 0, 0, 1, 0)
 
 
 def animate():
@@ -84,10 +84,10 @@ def motion(x, y):
 def rotate(delta_x, delta_y):
     rotation_factor = 1.2
 
-    glRotate(rotation_factor * delta_x, 0, 1, 0)
-
     glMatrixMode(GL_MODELVIEW)
-    xyz = np.dot(glGetDoublev(GL_MODELVIEW_MATRIX), (1, 0, -1, 1))
+    xyz = np.dot(glGetDoublev(GL_MODELVIEW_MATRIX), (0, 1, 0, 1))
+    glRotate(rotation_factor * delta_x, xyz[0], xyz[1], xyz[2])
+    xyz = np.dot(glGetDoublev(GL_MODELVIEW_MATRIX), (1, 0, 0, 1))
     glRotate(rotation_factor * delta_y, xyz[0], xyz[1], xyz[2])
 
 
